@@ -5,13 +5,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.unitils.reflectionassert.ReflectionAssert.assertLenientEquals;
 
 class CartTest {
 
-    RealItem pen = new RealItem();
-    VirtualItem book = new VirtualItem();
-    Cart testCart;
-    double actualResult;
+    public RealItem pen = new RealItem();
+    public VirtualItem book = new VirtualItem();
+    public Cart testCart;
+    public Cart expectedCart;
+    public double actualResult;
 
 
     @BeforeEach
@@ -47,6 +49,25 @@ class CartTest {
         testCart.addVirtualItem(book);
         actualResult = testCart.getTotalPrice();
         assertEquals(36.00, Math.round(actualResult * 100) / 100.0d);
+    }
+
+    @Test
+    void deleteRealItemTest() {
+        // expected cart is cart which does not contain any item
+        expectedCart = new Cart("test-cart");
+        //We add and delete Real item in Test cart
+        testCart.addRealItem(pen);
+        testCart.deleteRealItem(pen);
+        //When Real Item is deleted from Cart it does not contain any item so it should be equal to Expected cart
+        assertLenientEquals(expectedCart, testCart);
+    }
+
+    @Test
+    void deleteVirtualItemTest() {
+        expectedCart = new Cart("test-cart");
+        testCart.addVirtualItem(book);
+        testCart.deleteVirtualItem(book);
+        assertLenientEquals(expectedCart, testCart);
     }
 
     @AfterEach
