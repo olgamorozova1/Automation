@@ -14,6 +14,7 @@ class CartTest {
     public Cart testCart;
     public Cart expectedCart;
     public double actualResult;
+    public final double tax = 0.2;
 
 
     @BeforeEach
@@ -22,33 +23,15 @@ class CartTest {
         actualResult = 0.00;
     }
 
-
-    @Test
-    void getTotalPriceTestForRealItem() {
-        pen.setPrice(111.11);
-        testCart.addRealItem(pen);
-        actualResult = testCart.getTotalPrice();
-        assertEquals(133.33, Math.round(actualResult * 100) / 100.0d);
-    }
-
-    @Test
-    void getTotalPriceTestForVirtualItem() {
-
-        book.setPrice(33.3);
-        testCart.addVirtualItem(book);
-        actualResult = testCart.getTotalPrice();
-        assertEquals(39.96, Math.round(actualResult * 100) / 100.0d);
-    }
-
     @Test
     void getTotalPriceTestForAllItems() {
 
-        pen.setPrice(10.00);
-        book.setPrice(20.00);
+        pen.setPrice(111.99);
+        book.setPrice(22.26);
         testCart.addRealItem(pen);
         testCart.addVirtualItem(book);
         actualResult = testCart.getTotalPrice();
-        assertEquals(36.00, Math.round(actualResult * 100) / 100.0d);
+        assertEquals(pen.getPrice()+pen.getPrice()*tax+book.getPrice()+book.getPrice()*tax, testCart.getTotalPrice(), 0.001);
     }
 
     @Test
