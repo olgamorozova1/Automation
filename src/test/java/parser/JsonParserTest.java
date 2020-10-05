@@ -7,22 +7,20 @@ import org.junit.jupiter.params.provider.ValueSource;
 import shop.Cart;
 import shop.RealItem;
 import shop.VirtualItem;
-
 import java.io.*;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.unitils.reflectionassert.ReflectionAssert.assertLenientEquals;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 class JsonParserTest {
-    public Parser parser = new JsonParser();
-    public RealItem pen = new RealItem();
-    public RealItem pencil = new RealItem();
-    public VirtualItem book = new VirtualItem();
-    public VirtualItem film = new VirtualItem();
-    public Cart expectedCart;
-    public Cart actualCart;
-    public File file;
+    private Parser parser = new JsonParser();
+    private RealItem pen = new RealItem();
+    private RealItem pencil = new RealItem();
+    private VirtualItem book = new VirtualItem();
+    private VirtualItem film = new VirtualItem();
+    private Cart expectedCart;
+    private Cart actualCart;
+    private File file;
 
     @BeforeEach
     void createCartAndJSONFile() {
@@ -35,16 +33,13 @@ class JsonParserTest {
         pen.setName("Pen");
         pen.setPrice(10.12);
         pen.setWeight(0.05);
-
         book.setSizeOnDisk(100);
         book.setName("Book");
         book.setPrice(20.50);
 
         expectedCart.addRealItem(pen);
         expectedCart.addVirtualItem(book);
-
         parser.writeToFile(expectedCart);
-
         try {
             Gson gson = new Gson();
             Reader reader = new FileReader(file);
@@ -60,14 +55,12 @@ class JsonParserTest {
         pen.setName("Pen");
         pen.setPrice(10.00);
         pen.setWeight(0.50);
-
         book.setSizeOnDisk(100);
         book.setName("Book");
         book.setPrice(20.50);
 
         expectedCart.addRealItem(pen);
         expectedCart.addVirtualItem(book);
-
         try {
             Gson gson = new Gson();
             Writer writer = new FileWriter(file);
@@ -82,40 +75,31 @@ class JsonParserTest {
 
     @Test
     void createdCartWithOneRealItemAndOneVirtualItem() {
-
         pen.setName("Pen");
         pen.setPrice(10.12);
         pen.setWeight(0.05);
-
         book.setSizeOnDisk(100);
         book.setName("Book");
         book.setPrice(20.50);
 
         expectedCart.addRealItem(pen);
         expectedCart.addVirtualItem(book);
-
         parser.writeToFile(expectedCart);
-
         actualCart = parser.readFromFile(file);
-
         assertReflectionEquals(expectedCart, actualCart);
     }
 
     @Test
     void createSeveralRealAndVirtualItemsInOneCart() {
-
         pen.setName("Pen");
         pen.setPrice(10.00);
         pen.setWeight(0.05);
-
         pencil.setName("Pencil");
         pencil.setPrice(20.00);
         pencil.setWeight(0.07);
-
         book.setSizeOnDisk(100);
         book.setName("Book");
         book.setPrice(20.50);
-
         film.setSizeOnDisk(500);
         film.setName("Film");
         film.setPrice(45.37);
@@ -124,40 +108,31 @@ class JsonParserTest {
         expectedCart.addRealItem(pencil);
         expectedCart.addVirtualItem(book);
         expectedCart.addVirtualItem(film);
-
         parser.writeToFile(expectedCart);
-
         actualCart = parser.readFromFile(file);
-
         assertReflectionEquals(expectedCart, actualCart);
     }
 
     @Test
     void createdCartWithEmptyNameOfRealItem() {
-
         pen.setName("");
         pen.setPrice(0);
         pen.setWeight(0.01);
 
         expectedCart.addRealItem(pen);
-
         parser.writeToFile(expectedCart);
         actualCart = parser.readFromFile(file);
-
         assertReflectionEquals(expectedCart, actualCart);
     }
 
     @Test
     void createdCartWithZeroPriceOfRealItem() {
-
         pen.setName("Pen");
         pen.setPrice(0);
         pen.setWeight(0.01);
 
         expectedCart.addRealItem(pen);
-
         parser.writeToFile(expectedCart);
-
         actualCart = parser.readFromFile(file);
         assertReflectionEquals(expectedCart, actualCart);
     }
@@ -170,7 +145,6 @@ class JsonParserTest {
 
         expectedCart.addRealItem(pen);
         parser.writeToFile(expectedCart);
-
         actualCart = parser.readFromFile(file);
         assertReflectionEquals(expectedCart, actualCart);
     }
@@ -183,8 +157,6 @@ class JsonParserTest {
 
         expectedCart.addRealItem(pen);
         parser.writeToFile(expectedCart);
-
-
         actualCart = parser.readFromFile(file);
         assertReflectionEquals(expectedCart, actualCart);
     }
@@ -197,7 +169,6 @@ class JsonParserTest {
 
         expectedCart.addRealItem(pen);
         parser.writeToFile(expectedCart);
-
         actualCart = parser.readFromFile(file);
         assertReflectionEquals(expectedCart, actualCart);
     }
@@ -209,43 +180,32 @@ class JsonParserTest {
         book.setPrice(10);
 
         expectedCart.addVirtualItem(book);
-
         parser.writeToFile(expectedCart);
-
         actualCart = parser.readFromFile(file);
-
         assertReflectionEquals(expectedCart, actualCart);
     }
 
     @Test
     void createdCartWithZeroPriceOfVirtualItem() {
-
         book.setSizeOnDisk(0.01);
         book.setName("Book");
         book.setPrice(0);
 
         expectedCart.addVirtualItem(book);
-
         parser.writeToFile(expectedCart);
-
         actualCart = parser.readFromFile(file);
-
         assertReflectionEquals(expectedCart, actualCart);
     }
 
     @Test
     void createdCartWithNegativePriceOfVirtualItem() {
-
         book.setSizeOnDisk(0.01);
         book.setName("Book");
         book.setPrice(-0.01);
 
         expectedCart.addVirtualItem(book);
-
         parser.writeToFile(expectedCart);
-
         actualCart = parser.readFromFile(file);
-
         assertReflectionEquals(expectedCart, actualCart);
     }
 
@@ -256,11 +216,8 @@ class JsonParserTest {
         book.setPrice(0.01);
 
         expectedCart.addVirtualItem(book);
-
         parser.writeToFile(expectedCart);
-
         actualCart = parser.readFromFile(file);
-
         assertReflectionEquals(expectedCart, actualCart);
     }
 
@@ -271,11 +228,8 @@ class JsonParserTest {
         book.setPrice(0.01);
 
         expectedCart.addVirtualItem(book);
-
         parser.writeToFile(expectedCart);
-
         actualCart = parser.readFromFile(file);
-
         assertReflectionEquals(expectedCart, actualCart);
     }
 
@@ -295,19 +249,15 @@ class JsonParserTest {
         pen.setName("Pen");
         pen.setPrice(10.12);
         pen.setWeight(0.05);
-
         book.setSizeOnDisk(100);
         book.setName("Book");
         book.setPrice(20.50);
 
         expectedCart.addRealItem(pen);
         expectedCart.addVirtualItem(book);
-
         parser.writeToFile(expectedCart);
-
         actualCart = parser.readFromFile(file);
         assertReflectionEquals(expectedCart, actualCart);
-
     }
 
     @Test
@@ -315,11 +265,10 @@ class JsonParserTest {
         String path = "src\\main\\resources\\test-cart.json";
         Throwable exception = assertThrows(NoSuchFileException.class, () -> parser.readFromFile(new File(path)));
         assertEquals(("File " + path + ".json not found!"), exception.getMessage());
-
     }
 
     @ParameterizedTest
-    @ValueSource(strings = { "src\\main\\resources\\test-cart.json", "src\\main\\resources\\eugen-cart.txt", "eugen-cart.json", "", "src\\main\\resources\\eugen-cart" })
+    @ValueSource(strings = {"src\\main\\resources\\test-cart.json", "src\\main\\resources\\eugen-cart.txt", "eugen-cart.json", "", "src\\main\\resources\\eugen-cart"})
     public void NoSuchFileExceptionTest(String path) {
         Assertions.assertThrows(NoSuchFileException.class, () -> parser.readFromFile(new File(path)));
     }
@@ -329,5 +278,4 @@ class JsonParserTest {
         file.delete();
         expectedCart = null;
     }
-
 }
