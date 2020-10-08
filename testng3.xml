@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="ExceptionTestWithDifferentParameters" verbose="1">
+    <test name="nonexistentFileTest">
+        <parameter name="path" value="src\main\resources\test-cart.json"/>
+        <classes>
+            <class name="parser.JsonParserTestTestNG">
+                <methods>
+                    <include name="NoSuchFileExceptionTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="incorrectExtensionTest">
+        <parameter name="path" value="src\main\resources\eugen-cart.txt"/>
+        <classes>
+            <class name="parser.JsonParserTestTestNG">
+                <methods>
+                    <include name="NoSuchFileExceptionTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="pathContainsOnlyFileNameTest">
+        <parameter name="path" value="eugen-cart.json"/>
+        <classes>
+            <class name="parser.JsonParserTestTestNG">
+                <methods>
+                    <include name="NoSuchFileExceptionTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="emptyPathTest">
+        <parameter name="path" value=""/>
+        <classes>
+            <class name="parser.JsonParserTestTestNG">
+                <methods>
+                    <include name="NoSuchFileExceptionTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="fileNameWithoutExtensionTest">
+        <parameter name="path" value="src\main\resources\eugen-cart"/>
+        <classes>
+            <class name="parser.JsonParserTestTestNG">
+                <methods>
+                    <include name="NoSuchFileExceptionTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

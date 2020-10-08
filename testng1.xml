@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="SmokeTestOfJsonParserClass" verbose="1">
+    <test name="SmokeTestOfJsonParserClass">
+        <classes>
+            <class name="parser.JsonParserTestTestNG">
+                <methods>
+                    <include name="writeToFileTest"/>
+                    <include name="readFromFileTest"/>
+                    <exclude name="testExceptionMessage"/>
+                    <exclude name="NoSuchFileExceptionTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
