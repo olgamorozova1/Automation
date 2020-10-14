@@ -2,6 +2,7 @@ package shop;
 
 import org.testng.Assert;
 import org.testng.annotations.*;
+import testGroups.testGroups;
 
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
@@ -14,13 +15,13 @@ public class CartTestTestNG {
     private double expectedResult;
     private final double tax = 0.2;
 
-    @BeforeMethod(groups = {"checkintest"})
+    @BeforeMethod(groups = {testGroups.GROUP1})
     void createCart() {
         testCart = new Cart("test-cart");
         actualResult = 0.00;
     }
 
-    @Test(groups = {"checkintest"})
+    @Test(groups = {testGroups.GROUP1})
     void getTotalPriceTestForAllItems() {
         pen.setPrice(111.99);
         book.setPrice(22.26);
@@ -32,7 +33,7 @@ public class CartTestTestNG {
         Assert.assertEquals(expectedResult, actualResult, 0.001);
     }
 
-    @Test(groups = {"functest"})
+    @Test(groups = {testGroups.GROUP2})
     void deleteRealItemTest() {
         expectedCart = new Cart("test-cart");
         pen.setPrice(111.11);
@@ -43,7 +44,7 @@ public class CartTestTestNG {
         assertReflectionEquals(expectedCart, testCart);
     }
 
-    @Test(groups = {"functest"})
+    @Test(groups = {testGroups.GROUP2})
     void deleteVirtualItemTest() {
         expectedCart = new Cart("test-cart");
 
@@ -56,7 +57,7 @@ public class CartTestTestNG {
         assertReflectionEquals(expectedCart, testCart);
     }
 
-    @Test(groups = {"functest"})
+    @Test(groups = {testGroups.GROUP2})
     void deleteRealItemAndCheckTotalPriceTest() {
         pen.setPrice(111.11);
         book.setPrice(222.22);
@@ -69,7 +70,7 @@ public class CartTestTestNG {
         Assert.assertEquals(actualResult, expectedResult, 0.001);
     }
 
-    @Test(groups = {"functest"})
+    @Test(groups = {testGroups.GROUP2})
     void deleteVirtualItemAndCheckTotalPriceTest() {
         pen.setPrice(111.11);
         book.setPrice(222.22);
@@ -82,7 +83,7 @@ public class CartTestTestNG {
         Assert.assertEquals(actualResult, expectedResult, 0.001);
     }
 
-    @AfterMethod(groups = {"checkintest"})
+    @AfterMethod(groups = {testGroups.GROUP1})
     void deleteCart() {
         testCart = null;
     }

@@ -7,6 +7,7 @@ import org.testng.asserts.SoftAssert;
 import shop.Cart;
 import shop.RealItem;
 import shop.VirtualItem;
+import testGroups.testGroups;
 
 import java.io.*;
 
@@ -18,13 +19,13 @@ public class JsonParserTestTestNG {
     private Cart actualCart;
     private File file;
 
-    @BeforeMethod(groups = {"checkintest"})
+    @BeforeMethod(groups = {testGroups.GROUP1})
     void createCartAndJSONFile() {
         expectedCart = new Cart("olga-cart");
         file = new File("src/main/resources/olga-cart.json");
     }
 
-    @Test(groups = {"checkintest"})
+    @Test(groups = {testGroups.GROUP1})
     void writeToFileTest() {
         pen.setName("Pen");
         pen.setPrice(10.12);
@@ -49,7 +50,7 @@ public class JsonParserTestTestNG {
         softAssertion.assertAll();
     }
 
-    @Test(groups = {"checkintest"})
+    @Test(groups = {testGroups.GROUP1})
     void readFromFileTest() {
         pen.setName("Pen");
         pen.setPrice(10.00);
@@ -75,20 +76,20 @@ public class JsonParserTestTestNG {
         softAssertion.assertAll();
     }
 
-    @Test(enabled = false, groups = {"functest"})
+    @Test(enabled = false, groups = {testGroups.GROUP2})
     public void testExceptionMessage() {
-        String path = "src\\main\\resources\\test-cart.json";
+        String path = "src/main/resources/test-cart.json";
         Throwable exception = Assert.expectThrows(NoSuchFileException.class, () -> parser.readFromFile(new File(path)));
         Assert.assertEquals(("File " + path + ".json not found!"), exception.getMessage());
     }
 
-    @Test(groups = {"functest"})
+    @Test(groups = {testGroups.GROUP2})
     @Parameters({"path"})
     public void NoSuchFileExceptionTest(String path) {
         Assert.assertThrows(NoSuchFileException.class, () -> parser.readFromFile(new File(path)));
     }
 
-    @AfterMethod(groups = {"checkintest"})
+    @AfterMethod(groups = {testGroups.GROUP1})
     void deleteJSONFileCart() {
         file.delete();
         expectedCart = null;
