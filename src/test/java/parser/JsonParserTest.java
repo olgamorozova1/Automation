@@ -262,13 +262,13 @@ class JsonParserTest {
 
     @Test
     public void testExceptionMessage() {
-        String path = "src\\main\\resources\\test-cart.json";
+        String path = "src/main/resources/test-cart.json";
         Throwable exception = assertThrows(NoSuchFileException.class, () -> parser.readFromFile(new File(path)));
         assertEquals(("File " + path + ".json not found!"), exception.getMessage());
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"src\\main\\resources\\test-cart.json", "src\\main\\resources\\eugen-cart.txt", "eugen-cart.json", "", "src\\main\\resources\\eugen-cart"})
+    @ValueSource(strings = {"src/main/resources/test-cart.json", "src/main/resources/eugen-cart.txt", "eugen-cart.json", "", "src/main/resources/eugen-cart"})
     public void NoSuchFileExceptionTest(String path) {
         Assertions.assertThrows(NoSuchFileException.class, () -> parser.readFromFile(new File(path)));
     }
