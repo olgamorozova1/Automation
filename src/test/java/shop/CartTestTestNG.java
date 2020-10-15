@@ -2,7 +2,7 @@ package shop;
 
 import org.testng.Assert;
 import org.testng.annotations.*;
-import testGroups.testGroups;
+import Constants.testGroups;
 
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
@@ -15,13 +15,13 @@ public class CartTestTestNG {
     private double expectedResult;
     private final double tax = 0.2;
 
-    @BeforeMethod(groups = {testGroups.GROUP1})
+    @BeforeMethod(groups = {testGroups.CHECKIN})
     void createCart() {
         testCart = new Cart("test-cart");
         actualResult = 0.00;
     }
 
-    @Test(groups = {testGroups.GROUP1})
+    @Test(groups = {testGroups.CHECKIN})
     void getTotalPriceTestForAllItems() {
         pen.setPrice(111.99);
         book.setPrice(22.26);
@@ -33,7 +33,7 @@ public class CartTestTestNG {
         Assert.assertEquals(expectedResult, actualResult, 0.001);
     }
 
-    @Test(groups = {testGroups.GROUP2})
+    @Test(groups = {testGroups.FUNCTIONAL})
     void deleteRealItemTest() {
         expectedCart = new Cart("test-cart");
         pen.setPrice(111.11);
@@ -44,7 +44,7 @@ public class CartTestTestNG {
         assertReflectionEquals(expectedCart, testCart);
     }
 
-    @Test(groups = {testGroups.GROUP2})
+    @Test(groups = {testGroups.FUNCTIONAL})
     void deleteVirtualItemTest() {
         expectedCart = new Cart("test-cart");
 
@@ -57,7 +57,7 @@ public class CartTestTestNG {
         assertReflectionEquals(expectedCart, testCart);
     }
 
-    @Test(groups = {testGroups.GROUP2})
+    @Test(groups = {testGroups.FUNCTIONAL})
     void deleteRealItemAndCheckTotalPriceTest() {
         pen.setPrice(111.11);
         book.setPrice(222.22);
@@ -70,7 +70,7 @@ public class CartTestTestNG {
         Assert.assertEquals(actualResult, expectedResult, 0.001);
     }
 
-    @Test(groups = {testGroups.GROUP2})
+    @Test(groups = {testGroups.FUNCTIONAL})
     void deleteVirtualItemAndCheckTotalPriceTest() {
         pen.setPrice(111.11);
         book.setPrice(222.22);
@@ -83,7 +83,7 @@ public class CartTestTestNG {
         Assert.assertEquals(actualResult, expectedResult, 0.001);
     }
 
-    @AfterMethod(groups = {testGroups.GROUP1})
+    @AfterMethod(groups = {testGroups.CHECKIN})
     void deleteCart() {
         testCart = null;
     }
